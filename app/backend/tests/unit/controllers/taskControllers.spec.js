@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const TaskController = require('../../src/controllers/taskControllers');
-const TaskService = require('../../src/services/taskServices');
+const TaskController = require('../../../src/controllers/taskControllers');
+const TaskService = require('../../../src/services/taskServices');
 const mocks = require('../helpers/mocks');
 
 describe('Testa os controllers da rota /tasks', () => {
