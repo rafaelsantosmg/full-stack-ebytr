@@ -11,7 +11,14 @@ const validateLogin = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const validateTask = Joi.object({
+  title: Joi.string(),
+  content: Joi.string(),
+  status: Joi.string(),
+});
+
 module.exports = {
   validateUser,
   validateLogin,
+  validateTask,
 };
