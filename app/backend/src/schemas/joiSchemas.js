@@ -6,6 +6,12 @@ const validateUser = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const validateLogin = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+});
+
 module.exports = {
   validateUser,
+  validateLogin,
 };

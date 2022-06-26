@@ -7,4 +7,12 @@ const generateHash = (password) => {
   return hash;
 };
 
-module.exports = generateHash;
+const compareHash = (password, hashPassword) => {
+  const hash = bcrypt.compare(password, hashPassword);
+  return hash;
+};
+
+module.exports = {
+  generateHash,
+  compareHash,
+};

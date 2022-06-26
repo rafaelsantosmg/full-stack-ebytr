@@ -1,6 +1,6 @@
 const { User } = require('../database/models');
 const newError = require('../utils/newError');
-const generateHash = require('../utils/bcryptGenerate');
+const { generateHash } = require('../utils/bcryptGenerate');
 const { generateToken } = require('../utils/tokenJWT');
 
 const create = async (body) => {
