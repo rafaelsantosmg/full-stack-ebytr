@@ -4,7 +4,7 @@ const UserController = require('../../src/controllers/userControllers');
 const UserService = require('../../src/services/userServices');
 const mocks = require('../helpers/mocks');
 
-describe('Testa os controllers da rota /Products', () => {
+describe('Testa os controllers da rota /users', () => {
   const res = {};
   const req = {};
 
@@ -25,7 +25,7 @@ describe('Testa os controllers da rota /Products', () => {
     });
     it('valida se retorna todos os produtos', async () => {
       await UserController.getAll(req, res);
-      expect(res.json.calledWith(mocks.allProducts)).to.be.equal(true);
+      expect(res.json.calledWith(mocks.allUsers)).to.be.equal(true);
     });
   });
 
@@ -51,7 +51,7 @@ describe('Testa os controllers da rota /Products', () => {
       });
       it('valida se traz o retorno do produto pelo id', async () => {
         await UserController.getById(req, res);
-        expect(res.json.calledWith(mocks.getProductById)).to.be.equal(true);
+        expect(res.json.calledWith(mocks.getUserById)).to.be.equal(true);
       });
     });
 
@@ -94,7 +94,7 @@ describe('Testa os controllers da rota /Products', () => {
         sinon.stub(UserService, 'create').resolves(1);
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns(res);
-        req.body = mocks.createProduct;
+        req.body = mocks.createUser;
       });
 
       after(() => {
@@ -107,7 +107,7 @@ describe('Testa os controllers da rota /Products', () => {
       });
       it('valida se traz o retorno do produto criado', async () => {
         await UserController.create(req, res);
-        expect(res.json.calledWith(mocks.createProductSucess)).to.be.equal(true);
+        expect(res.json.calledWith(mocks.createUser)).to.be.equal(true);
       });
     });
 
@@ -116,7 +116,7 @@ describe('Testa os controllers da rota /Products', () => {
         sinon.stub(UserService, 'create').resolves(1);
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns(res);
-        req.body = mocks.createProduct;
+        req.body = mocks.createUser;
       });
 
       after(() => {
@@ -135,7 +135,7 @@ describe('Testa os controllers da rota /Products', () => {
         try {
           await UserController.create(req, res);
         } catch (error) {
-          expect(error.message).to.be.equals('Product already exists');
+          expect(error.message).to.be.equals('User already exists');
         }
       });
     });
@@ -151,7 +151,7 @@ describe('Testa os controllers da rota /Products', () => {
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns(res);
         req.params = sinon.stub().returns({ id: 2 });
-        req.body = mocks.updateProductReq;
+        req.body = mocks.updateUserReq;
       });
 
       after(() => {
@@ -164,7 +164,7 @@ describe('Testa os controllers da rota /Products', () => {
       });
       it('valida se traz o retorno do produto criado', async () => {
         await UserController.update(req, res);
-        expect(res.json.calledWith(mocks.updateProduct)).to.be.equal(true);
+        expect(res.json.calledWith(mocks.updateUser)).to.be.equal(true);
       });
     });
 
@@ -174,7 +174,7 @@ describe('Testa os controllers da rota /Products', () => {
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns(res);
         req.params = sinon.stub().returns({ id: 2 });
-        req.body = mocks.updateProductReq;
+        req.body = mocks.updateUserReq;
       });
 
       after(() => {
@@ -247,7 +247,7 @@ describe('Testa os controllers da rota /Products', () => {
         try {
           await UserController.destroyer(req, res);
         } catch (error) {
-          expect(error.message).to.be.equals('Product not found');
+          expect(error.message).to.be.equals('User not found');
         }
       });
     });

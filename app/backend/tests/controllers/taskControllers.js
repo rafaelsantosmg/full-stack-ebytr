@@ -4,13 +4,13 @@ const TaskController = require('../../src/controllers/taskControllers');
 const TaskService = require('../../src/services/taskServices');
 const mocks = require('../helpers/mocks');
 
-describe('Testa os controllers da rota /Tasks', () => {
+describe('Testa os controllers da rota /tasks', () => {
   const res = {};
   const req = {};
 
   describe('Testa a função getAll', () => {
     before(() => {
-      sinon.stub(TaskService, 'getAll').resolves(mocks.sales);
+      sinon.stub(TaskService, 'getAll').resolves(mocks.allTasks);
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns(res);
     });
@@ -25,7 +25,7 @@ describe('Testa os controllers da rota /Tasks', () => {
     });
     it('valida se retorna todas as tasks', async () => {
       await TaskController.getAll(req, res);
-      expect(res.json.calledWith(mocks.sales)).to.be.equal(true);
+      expect(res.json.calledWith(mocks.allTasks)).to.be.equal(true);
     });
   });
 
@@ -35,7 +35,7 @@ describe('Testa os controllers da rota /Tasks', () => {
 
     describe('Testa se houve sucesso na requisição getById', () => {
       before(() => {
-        sinon.stub(TaskService, 'getById').resolves(mocks.sale);
+        sinon.stub(TaskService, 'getById').resolves(mocks.tasksByIdDB);
         res.status = sinon.stub().returns(res);
         res.json = sinon.stub().returns(res);
         req.params = sinon.stub().returns({ id: 1 });
@@ -51,7 +51,7 @@ describe('Testa os controllers da rota /Tasks', () => {
       });
       it('valida se traz o retorno da task pelo id', async () => {
         await TaskController.getById(req, res);
-        expect(res.json.calledWith(mocks.sale)).to.be.equal(true);
+        expect(res.json.calledWith(mocks.tasksByIdDB)).to.be.equal(true);
       });
     });
 
@@ -79,7 +79,7 @@ describe('Testa os controllers da rota /Tasks', () => {
         try {
           await TaskController.getById(req, res);
         } catch (error) {
-          expect(error.message).to.be.equals('Sale not found');
+          expect(error.message).to.be.equals('Task not found');
         }
       });
     });
@@ -87,7 +87,7 @@ describe('Testa os controllers da rota /Tasks', () => {
 
   describe('Testa se houve sucesso na requisição create', () => {
     before(() => {
-      sinon.stub(TaskService, 'create').resolves(mocks.sale);
+      sinon.stub(TaskService, 'create').resolves(mocks.createTask);
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns(res);
       req.body = mocks.createProduct;
@@ -101,19 +101,19 @@ describe('Testa os controllers da rota /Tasks', () => {
       await TaskController.create(req, res);
       expect(res.status.calledWith(201)).to.be.equal(true);
     });
-    it('valida se traz o retorno da venda criada', async () => {
+    it('valida se traz o retorno da task criada', async () => {
       await TaskController.create(req, res);
-      expect(res.json.calledWith(mocks.sale)).to.be.equal(true);
+      expect(res.json.calledWith(mocks.createTask)).to.be.equal(true);
     });
   });
 
   describe('Testa se houve sucesso na requisição update', () => {
     before(() => {
-      sinon.stub(TaskService, 'update').resolves(mocks.salesDBUpdate);
+      sinon.stub(TaskService, 'update').resolves(mocks.updateTask);
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns(res);
       req.params = sinon.stub().returns({ id: 1 });
-      req.body = mocks.updateSaleReq;
+      req.body = mocks.updateTaskReq;
     });
 
     after(() => {
@@ -126,7 +126,7 @@ describe('Testa os controllers da rota /Tasks', () => {
     });
     it('valida se traz o retorno da task atualizada', async () => {
       await TaskController.update(req, res);
-      expect(res.json.calledWith(mocks.salesDBUpdate)).to.be.equal(true);
+      expect(res.json.calledWith(mocks.TaskDBUpdate)).to.be.equal(true);
     });
   });
 
@@ -178,7 +178,7 @@ describe('Testa os controllers da rota /Tasks', () => {
         try {
           await TaskController.destroyer(req, res);
         } catch (error) {
-          expect(error.message).to.be.equals('Sale not found');
+          expect(error.message).to.be.equals('Task not found');
         }
       });
     });
