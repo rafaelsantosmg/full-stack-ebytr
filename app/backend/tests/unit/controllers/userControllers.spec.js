@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const UserController = require('../../src/controllers/userControllers');
-const UserService = require('../../src/services/userServices');
+const UserController = require('../../../src/controllers/userControllers');
+const UserService = require('../../../src/services/userServices');
 const mocks = require('../helpers/mocks');
 
 describe('Testa os controllers da rota /users', () => {
