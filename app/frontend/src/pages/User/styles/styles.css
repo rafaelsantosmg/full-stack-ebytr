@@ -1,0 +1,15 @@
+.page-create-user {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.title-user {
+  color: rgba(22, 102, 139, 0.938);
+  font-size: xx-large;
+  font-weight: 900;
+  padding: 20px;
+  text-align: center;
+}
