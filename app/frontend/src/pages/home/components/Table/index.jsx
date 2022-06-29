@@ -2,20 +2,22 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 export default function Table() {
-  const tasks = [{ id: 1, task: 'Teste', status: 'pendente', }];
+  const tasks = [{ id: 1, title: 'teste', task: 'Teste', status: 'pendente' }];
   return (
     <table className="table table-dark table-hover">
       <thead>
         <tr>
           <th>Id</th>
+          <th>Título</th>
           <th>Tarefas</th>
           <th>Status</th>
         </tr>
       </thead>
       <tbody>
-        { tasks.map((task,) => (
+        { tasks.map((task) => (
           <tr key={ task.id } className="table-active">
-            <td>{task.id }</td>
+            <td>{task.id}</td>
+            <td>{ task.title }</td>
             <td>{ task.task }</td>
             <td>{ task.status }</td>
             <td>
@@ -23,9 +25,9 @@ export default function Table() {
                 type="button"
                 btnClass="btn btn-dark"
                 dataTestId="edit-btn"
-                onChangeClick={ () => onChangeEdit(task.id,) }
+                onChangeClick={ () => onChangeEdit(task.id) }
               >
-                <i className="bi bi-pencil-square" style={ { fontSize: '20px', } } />
+                <i className="bi bi-pencil-square" style={ { fontSize: '20px' } } />
               </Button>
               { ' ' }
               <Button
@@ -34,11 +36,11 @@ export default function Table() {
                 dataTestId="delete-btn"
                 onChangeClick={ () => {} }
               >
-                <i className="bi bi-journal-x" style={ { fontSize: '20px', } } />
+                <i className="bi bi-journal-x" style={ { fontSize: '20px' } } />
               </Button>
             </td>
           </tr>
-        ),) }
+        )) }
       </tbody>
     </table>
   );
