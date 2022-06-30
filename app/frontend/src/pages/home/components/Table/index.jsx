@@ -1,47 +1,61 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
+import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+import { Button, Table } from 'react-bootstrap';
+import { getUser } from '../../../../services/localStorage';
+import { Context } from '../../../../Context';
 
-export default function Table() {
-  const tasks = [{ id: 1, title: 'teste', task: 'Teste', status: 'pendente' }];
+export default function Tables() {
+  const { isRender } = useContext(Context);
+
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const getAll = async () => {
+      const { token } = getUser();
+      const { data } = await axios.get('http://localhost:3333/tasks', {
+        headers: { Authorization: token },
+      });
+      setTasks(data);
+    };
+    getAll();
+  }, [isRender]);
+
   return (
-    <table className="table table-dark table-hover">
+    <Table striped bordered hover variant="dark">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Título</th>
-          <th>Tarefas</th>
-          <th>Status</th>
+          <th className="thead-id">Id</th>
+          <th className="thead-title">Título</th>
+          <th className="thead-content">Tarefas</th>
+          <th className="thead-status">Status</th>
+          <th> </th>
         </tr>
       </thead>
       <tbody>
-        { tasks.map((task) => (
-          <tr key={ task.id } className="table-active">
-            <td>{task.id}</td>
-            <td>{ task.title }</td>
-            <td>{ task.task }</td>
-            <td>{ task.status }</td>
-            <td>
+        { tasks.length !== 0 && tasks.map((t) => (
+          <tr className="tbody" key={ t.id }>
+            <td className="tbody-id">{ t.id }</td>
+            <td className="tbody-title">{ t.title }</td>
+            <td className="tbody-content">{ t.content }</td>
+            <td className="tbody-status">{ t.status }</td>
+            <td className="tbody-buttons">
               <Button
-                type="button"
-                btnClass="btn btn-dark"
-                dataTestId="edit-btn"
-                onChangeClick={ () => onChangeEdit(task.id) }
+                variant="success"
+                onClick={ () => {} }
               >
-                <i className="bi bi-pencil-square" style={ { fontSize: '20px' } } />
+                <i className="bi bi-pencil" style={ { fontSize: '20px' } } />
               </Button>
               { ' ' }
               <Button
-                type="button"
-                btnClass="btn btn-dark"
-                dataTestId="delete-btn"
-                onChangeClick={ () => {} }
+                variant="danger"
+                onClick={ () => {} }
               >
-                <i className="bi bi-journal-x" style={ { fontSize: '20px' } } />
+                <i className="bi bi-trash" style={ { fontSize: '20px' } } />
               </Button>
             </td>
           </tr>
         )) }
       </tbody>
-    </table>
+    </Table>
   );
 }
