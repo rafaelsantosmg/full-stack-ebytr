@@ -6,6 +6,13 @@ const create = async (req, res) => {
   return res.status(201).json(task);
 };
 
+const getAll = async (req, res) => {
+  const { id } = req.user;
+  const tasks = await taskService.getAll(id);
+  return res.status(200).json(tasks);
+};
+
 module.exports = {
   create,
+  getAll,
 };
