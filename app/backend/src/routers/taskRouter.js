@@ -12,4 +12,10 @@ router.post(
   rescue(taskController.create),
 );
 
+router.get(
+  '/',
+  authenticate,
+  rescue(taskController.getAll),
+);
+
 module.exports = router;
