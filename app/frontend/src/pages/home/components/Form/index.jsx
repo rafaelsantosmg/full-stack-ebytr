@@ -1,60 +1,97 @@
-import axios from 'axios';
 import React, { useContext } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { Context } from '../../../../Context';
 import { getUser } from '../../../../services/localStorage';
+import { apiPost, apiPut } from '../../../../services/api';
 
 export default function Forms() {
-  const { isEdit, setIsEdit, task, setTask, isRender, setIsRender } = useContext(Context);
+  const { isEdit, setIsEdit, task,
+    setTask, isRender, setIsRender } = useContext(Context);
+
   const createTask = async (event) => {
     event.preventDefault();
-    const { token } = getUser();
-    await axios.post('http://localhost:3333/tasks', task, { headers: { Authorization: token } });
+    try {
+      const { token } = getUser();
+      await apiPost('/tasks', task, { headers: { Authorization: token } });
+      setTask({ title: '', content: '', status: 'Pendente' });
+      setIsEdit(false);
+      setIsRender(!isRender);
+    } catch (error) {
+      // eslint-disable-next-line no-alert
+      window.alert(error.message);
+    }
+  };
+
+  const updateTask = async (event) => {
+    event.preventDefault();
+    const { id, title, content, status } = task;
+    try {
+      const { token } = getUser();
+      await apiPut('/tasks',
+        id,
+        { title, content, status },
+        { headers: { Authorization: token } });
+      setTask({ title: '', content: '', status: 'Pendente' });
+      setIsEdit(false);
+      setIsRender(!isRender);
+    } catch (error) {
+      // eslint-disable-next-line no-alert
+      window.alert(error.message);
+    }
+  };
+
+  const cancelEdit = () => {
     setTask({ title: '', content: '', status: 'Pendente' });
     setIsEdit(false);
-    setIsRender(!isRender);
   };
 
   return (
-    <Form className={ isEdit ? 'task-form-edit' : 'task-form' }>
-      <Row className="mb-3">
-        <Form.Group as={ Col } controlId="formGridTitle">
+    <Form className={ isEdit ? 'task-form-edit task' : 'task-form task' }>
+      <Row className="align-items-center">
+        <Col xl="auto" className="my-1">
           <Form.Label>Title</Form.Label>
           <Form.Control
             value={ task.title }
             onChange={ (event) => setTask({ ...task, title: event.target.value }) }
           />
-        </Form.Group>
+        </Col>
 
-        <Form.Group as={ Col } controlId="formGridTarefas">
+        <Col xl={ 6 } className="my-1">
           <Form.Label>Tarefas</Form.Label>
           <Form.Control
             value={ task.content }
             onChange={ (event) => setTask({ ...task, content: event.target.value }) }
           />
-        </Form.Group>
+        </Col>
 
-        <Form.Group as={ Col } controlId="formGridStatus">
+        <Col sm="auto" className="my-1">
           <Form.Label>Status</Form.Label>
           <Form.Select
-            defaultValue="Pendente"
             value={ task.status }
             onChange={ (event) => setTask({ ...task, status: event.target.value }) }
           >
-            <option>Selecione...</option>
-            <option value="Em Andamento">Em Andamento</option>
             <option value="Pendente">Pendente</option>
+            <option value="Em Andamento">Em Andamento</option>
             <option value="Concluido">Concluido</option>
           </Form.Select>
-        </Form.Group>
+        </Col>
 
-        <Button
-          className="add-task"
-          variant="success"
-          onClick={ createTask }
-        >
-          <i className="bi bi-file-earmark-plus-fill" style={ { fontSize: '20px' } } />
-        </Button>
+        <Col sm="auto" className="my-1" style={ { alignSelf: 'end' } }>
+          <Button
+            variant="success"
+            onClick={ isEdit ? updateTask : createTask }
+          >
+            <i className="bi bi-file-earmark-plus-fill" />
+          </Button>
+          { ' ' }
+          <Button
+            disabled={ !isEdit }
+            variant="danger"
+            onClick={ cancelEdit }
+          >
+            <i className="bi bi-x-square" />
+          </Button>
+        </Col>
       </Row>
     </Form>
   );
