@@ -1,9 +1,9 @@
-import axios from 'axios';
 import React, { useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { Context } from '../../../../Context';
 import { saveUser } from '../../../../services/localStorage';
+import { apiPost } from '../../../../services/api';
 
 export default function Forms() {
   const { login, setLogin } = useContext(Context);
@@ -11,12 +11,15 @@ export default function Forms() {
 
   const getLogin = async (event) => {
     event.preventDefault();
-    await axios.post('http://localhost:3333/login', login)
-      .then(({ data }) => {
-        saveUser(data.user, data.token);
-      });
-    setLogin({ email: '', password: '' });
-    navigate('/home');
+    try {
+      const { data } = await apiPost('/login', login);
+      saveUser(data.user, data.token);
+      setLogin({ email: '', password: '' });
+      navigate('/home');
+    } catch (error) {
+      // eslint-disable-next-line no-alert
+      window.alert(error.message);
+    }
   };
 
   return (
