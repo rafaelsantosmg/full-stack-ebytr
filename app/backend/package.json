@@ -9,9 +9,9 @@
     "dev": "nodemon src/server.js",
     "drop": "npx sequelize-cli db:drop",
     "seed": "npx sequelize-cli db:seed:all",
-    "test": "mocha tests/**/*.js --exit",
     "test:mocha": "nyc mocha --all --include models --include services --include controllers tests/unit/**/*.js --exit",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
+    "test": "mocha tests/**/*$NAME*.spec.js --exit"
   },
   "keywords": [],
   "author": "Rafael Santos",
@@ -26,7 +26,8 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "2.1.0",
-    "sequelize": "^6.21.0"
+    "sequelize": "^6.21.0",
+    "sequelize-test-helpers": "^1.4.2"
   },
   "devDependencies": {
     "chai": "^4.3.6",
