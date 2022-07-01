@@ -1,5 +1,6 @@
 .page-login {
   align-items: center;
+  border: 2px, 2px 2px #fff;
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -7,7 +8,7 @@
 }
 
 .title-login {
-  color: rgba(22, 102, 139, 0.938);
+  color: #fff;
   font-size: xx-large;
   font-weight: 900;
   padding: 20px;

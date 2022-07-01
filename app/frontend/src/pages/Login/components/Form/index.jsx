@@ -23,7 +23,7 @@ export default function Forms() {
   };
 
   return (
-    <Form>
+    <Form className="border border-white p-4 text-white bg-dark shadow rounded">
       <h1 className="title-login">Login</h1>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
@@ -44,13 +44,18 @@ export default function Forms() {
         />
       </Form.Group>
       <Button
-        variant="primary"
+        variant="light"
         type="submit"
         onClick={ getLogin }
       >
         Entrar
       </Button>
-      <Link className="link-create-user" to="/user">Criar Usuário...</Link>
+      <Link
+        className="link-create-user text-light bg-dark"
+        to="/user"
+      >
+        Criar Usuário...
+      </Link>
     </Form>
   );
 }

@@ -20,7 +20,7 @@ export default function Forms() {
   };
 
   return (
-    <Form>
+    <Form className="border border-white p-4 text-white bg-dark shadow rounded">
       <h1 className="title-user">Usuário</h1>
       <Form.Group className="mb-3" controlId="formBasicText">
         <Form.Label>Nome de Usuário</Form.Label>
@@ -50,7 +50,7 @@ export default function Forms() {
         />
       </Form.Group>
       <Button
-        variant="primary"
+        variant="light"
         type="submit"
         onClick={ createUser }
       >
