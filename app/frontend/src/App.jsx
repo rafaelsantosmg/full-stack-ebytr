@@ -4,9 +4,11 @@ import Router from './Routers';
 
 function App() {
   return (
-    <Provider>
-      <Router />
-    </Provider>
+    <div style={ { backgroundColor: 'grey', height: '100vh' } }>
+      <Provider>
+        <Router />
+      </Provider>
+    </div>
   );
 }
 
