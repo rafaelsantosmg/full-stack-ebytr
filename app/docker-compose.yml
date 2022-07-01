@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  app:
+    build: ./frontend
+    platform: linux/x86_64
+    container_name: ebytr_app
+    ports:
+      - 3000:3000
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3000"]
+      timeout: 10s
+      retries: 5
+  api:
+    build: ./backend
+    platform: linux/x86_64
+    restart: 'always'
+    container_name: ebytr_api
+    ports:
+      - 3333:3333
+    volumes:
+      - './backend/src:/app/src'
+    tty: true
+    stdin_open: true
+    command: npm start
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 3333:3333
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=ebytr_db
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3333"]
+      timeout: 10s
+      retries: 5
+  db:
+    image: mysql:8
+    platform: linux/x86_64
+    restart: 'always'
+    container_name: ebytr_db
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+
+networks:
+  default:
+    name: ebytr
