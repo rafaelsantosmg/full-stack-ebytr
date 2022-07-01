@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "database": "cd app && cd backend && npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "postinstall": "npm run install:apps",
     "install:apps": "./apps_install.sh",
     "compose:up": "(cd app && docker-compose up -d --build)",
