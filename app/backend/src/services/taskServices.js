@@ -10,7 +10,23 @@ const getAll = async (userId) => {
   return tasks;
 };
 
+const getById = async (id, userId) => {
+  const task = await Task.findOne({ where: { id, userId } });
+  return task;
+};
+
+const update = async (id, userId, body) => {
+  await Task.update({ ...body }, { where: { id, userId } });
+};
+
+const destroy = async (id, userId) => {
+  await Task.destroy({ where: { id, userId } });
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
+  update,
+  destroy,
 };
