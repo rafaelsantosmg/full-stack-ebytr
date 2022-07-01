@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
 import { Context } from '../../../../Context';
+import { apiPost } from '../../../../services/api';
 
 export default function Forms() {
   const { user, setUser } = useContext(Context);
@@ -10,9 +10,13 @@ export default function Forms() {
 
   const createUser = async (event) => {
     event.preventDefault();
-    await axios.post('http://localhost:3333/users', user);
-    setUser({ displayName: '', email: '', password: '' });
-    navigate('/');
+    try {
+      await apiPost('/users', user);
+      setUser({ displayName: '', email: '', password: '' });
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
