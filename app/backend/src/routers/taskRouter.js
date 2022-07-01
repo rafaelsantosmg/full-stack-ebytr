@@ -13,9 +13,27 @@ router.post(
 );
 
 router.get(
+  '/:id',
+  authenticate,
+  rescue(taskController.getById),
+);
+
+router.get(
   '/',
   authenticate,
   rescue(taskController.getAll),
+);
+
+router.put(
+  '/:id',
+  authenticate,
+  rescue(taskController.update),
+);
+
+router.delete(
+  '/:id',
+  authenticate,
+  rescue(taskController.destroy),
 );
 
 module.exports = router;
