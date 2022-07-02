@@ -23,15 +23,15 @@ const getById = async (req, res) => {
 const update = async (req, res) => {
   const { id } = req.params;
   const { id: userId } = req.user;
-  const tasks = await taskService.update(id, userId, req.body);
-  return res.status(200).json(tasks);
+  await taskService.update(id, userId, req.body);
+  return res.status(200).send();
 };
 
 const destroy = async (req, res) => {
   const { id } = req.params;
   const { id: userId } = req.user;
   await taskService.destroy(id, userId);
-  return res.status(200).end();
+  return res.status(204).end();
 };
 
 module.exports = {
