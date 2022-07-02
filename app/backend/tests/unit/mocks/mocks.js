@@ -1,37 +1,65 @@
 const allUsers = [
   {
-    name: 'Rafael Santos',
+    displayName: 'Rafael Santos',
     email: 'rafaelsantos@gmail.com',
   },
   {
-    name: 'Emerson Moreira',
+    displayName: 'Emerson Moreira',
     email: 'emersonmoreira@gmail.com',
   },
   {
-    name: 'Camila Ranniele',
+    displayName: 'Camila Ranniele',
     email: 'camilaranniele@gmail.com',
   },
 ];
 
+const findUserReject = {
+  id: 1,
+  displayName: 'Rafael Santos',
+  email: 'rafaelsantos@gmail.com',
+};
+
 const findUser = {
-  name: 'Emerson Moreira',
-  email: 'emersonmoreira@gmail.com',
+  id: 1,
+  displayName: 'Rafael Santos',
+  email: 'rafaelsantos@gmail.com',
+};
+
+const createUserResolves = {
+  id: 1,
+  displayName: 'Rafael Santos',
+  email: 'rafaelsantos@gmail.com',
 };
 
 const createUser = {
-  id: 1,
-  name: 'Rafael Santos',
+  displayName: 'Rafael Santos',
   email: 'rafaelsantos@gmail.com',
+  password: '123456',
+}
+
+const login = {
+  email: 'rafaelsantos@gmail.com',
+  password: '123456'
+};
+
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJkaXNwbGF5TmFtZSI6IlJhZmFlbCBTYW50b3MiLCJlbWFpbCI6InJhZmFlbHNhbnRvc0BnbWFpbC5jb20ifSwiaWF0IjoxNjU2NzEyNjU5LCJleHAiOjE2NTczMTc0NTl9.rgRBVHNuWnLPB0-voKbOf7MStweDmcRI_sBmvxKRECI'
+
+const loginResolves = {
+  user: {
+    id: 1,
+    displayName: 'Rafael Santos',
+    email: 'rafaelsantos@gmail.com',
+  }, token
 };
 
 const updateUser = {
   id: 2,
-  name: 'Emerson Moreira',
+  displayName: 'Emerson Moreira',
   email: 'emersonmoreira@yahoo.com.br',
 };
 
 const updateUserReq = {
-  name: 'Emerson Moreira',
+  displayName: 'Emerson Moreira',
   email: 'emersonmoreira@gmail.com',
 };
 
@@ -40,55 +68,67 @@ const deleteUser = 1;
 const allTasks = [
   {
     id: 1,
-    userId: 1,
     title: 'Realizar o cadastro de serviços',
     content: 'Cadastavar um novo serviço para estudantes',
     status: 'em andamento',
+    userId: 1,
+    published: '2022-07-01',
   },
   {
     id: 2,
-    userId: 1,
     title: 'Atualizar o cadastro de serviços',
     content: 'Atualizar o serviço para os estudantes',
     status: 'em andamento',
+    userId: 1,
+    published: '2022-07-01',
   },
 ];
 
-const tasksByIdDB = {
+const tasksById = {
   id: 1,
-  userId: 1,
   title: 'Realizar o cadastro de serviços',
   content: 'Cadastavar um novo serviço para estudantes',
   status: 'em andamento',
+  userId: 1,
+  published: '2022-07-01',
 };
 
-const createTask = [
-  {
-    productId: 1,
-    quantity: 3,
-  },
-];
+const createTaskResolves = {
+  id: 1,
+  title: 'Realizar o cadastro de serviços',
+  content: 'Cadastavar um novo serviço para estudantes',
+  status: 'em andamento',
+  userId: 1,
+  published: '2022-07-01',
+};
+
+const createTask = {
+  title: 'Remover Estutande',
+  content: 'Remover a matrícula do estudante, para atualização do cadastro',
+  status: 'Pendente',
+};
 
 const updateTask = {
-  id: 1,
-  task: {
-    title: 'Remover Estutande',
-    content: 'Remover a matrícula do estudante, para atualização do cadastro',
-  },
+  title: 'Remover Estutande',
+  content: 'Remover a matrícula do estudante, para atualização do cadastro',
+  status: 'Pendente',
 };
 
-const deleteTask = 1;
-
 module.exports = {
+  token,
   allUsers,
   findUser,
+  findUserReject,
+  login,
+  loginResolves,
   updateUser,
   updateUserReq,
+  createUserResolves,
   createUser,
   deleteUser,
   allTasks,
-  tasksByIdDB,
+  tasksById,
   createTask,
+  createTaskResolves,
   updateTask,
-  deleteTask,
 };
